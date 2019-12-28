@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Silence is golden. </title>
+</head>
+<body>
+
+	<ul class="list-group list-group-flush nameList">
+   
+  	</ul>
+
+	<script type="text/javascript">
+		
+	////////// SHOW DATABASE IF NOT EMPTY
+	if(localStorage.userDb != "null" && localStorage.userDb != undefined ){
+
+			if(localStorage.userDb.length > 0){
+				// mar van itt valami 
+		let brothersObject = JSON.parse(localStorage.userDb);
+			console.table(brothersObject);
+
+			////// HTML SHOWING 
+
+			var userDbArray = Object.keys(brothersObject)
+				.map(function(key) {
+				return brothersObject[key];
+				});
+			var outputDOM = document.querySelectorAll(".nameList")[0];
+
+				for (var i = 0; i < userDbArray.length; i++) {
+					outputDOM.innerHTML += userDbArray[i].name;
+					outputDOM.innerHTML += userDbArray[i].date;
+					outputDOM.innerHTML += userDbArray[i].other;
+
+				}
+
+			}
+
+		}
+
+
+function addBro() {
+
+	//////////                             //////////
+	////////// DATABASE EMPTY, ADD TO IT  //////////
+	//////////                            //////////
+	if(localStorage.userDb == undefined){
+		// amikor ures az adatbazis
+		let brothersObject = new Object();
+
+	var newBrotherObjectName = prompt("Az uj testver neve");
+		var newBrother = new Object();
+
+		var newDate = new Date();
+		var actualDate = newDate.toString();
+
+		newBrother.name = newBrotherObjectName;
+		newBrother.date = actualDate;
+		newBrother.other = "Es war klar dienst.";
+
+	// Old reminder If NO ES6 working for newBrotherObjectName to assign from Variable.
+	// https://stackoverflow.com/questions/11508463/javascript-set-object-key-by-variable
+	
+	Object.assign(brothersObject, { [newBrotherObjectName]: newBrother });
+
+	localStorage.userDb = JSON.stringify(brothersObject);
+	}
+	//////////                            //////////
+	////////// DATABASE FILLED, THEN SHOW //////////
+	//////////                            //////////
+
+	else if( localStorage.userDb.length > 0 ) {
+
+		// mar van itt valami 
+		let brothersObject = JSON.parse(localStorage.userDb);
+
+	var newBrotherObjectName = prompt("Az uj testver neve");
+		var newBrother = new Object();
+
+		var newDate = new Date();
+		var actualDate =  newDate.toString();
+
+		newBrother.name = newBrotherObjectName;
+		newBrother.date = actualDate;
+		newBrother.other = "Es war klar dienst.";
+
+	// Old reminder If NO ES6 working for newBrotherObjectName to assign from Variable.
+	// https://stackoverflow.com/questions/11508463/javascript-set-object-key-by-variable
+	
+	Object.assign(brothersObject, { [newBrotherObjectName]: newBrother });
+
+	localStorage.userDb = JSON.stringify(brothersObject);
+	}
+
+}
+
+	</script>
+
+</body>
+</html>
